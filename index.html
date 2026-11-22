@@ -1,853 +1,392 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安继强 Jackson｜AI 应用学习者</title>
-  <meta name="description" content="安继强 Jackson 的个人主页：AI 应用学习者、智能网联汽车工程学生、Postman/API 测试、Agent/MCP 学习、智能机器人竞赛经历。" />
-  <style>
-    :root {
-      --bg: #f7f9fc;
-      --surface: #ffffff;
-      --surface-2: #f1f5fb;
-      --text: #0f172a;
-      --muted: #536079;
-      --line: #e2e8f0;
-      --blue: #2563eb;
-      --blue-2: #1d4ed8;
-      --blue-soft: #eaf1ff;
-      --shadow: 0 24px 80px rgba(15, 23, 42, 0.10);
-      --radius: 28px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.08), transparent 30%),
-        radial-gradient(circle at 90% 0%, rgba(37, 99, 235, 0.06), transparent 25%),
-        var(--bg);
-      line-height: 1.7;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-
-    .topbar {
-      width: min(1180px, calc(100% - 32px));
-      margin: 18px auto 0;
-      padding: 14px 16px;
-      position: sticky;
-      top: 14px;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      border-radius: 24px;
-      backdrop-filter: blur(18px);
-      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.08);
-    }
-
-    .brand { display: flex; align-items: center; gap: 12px; }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: 22px;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--blue), #60a5fa);
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
-    }
-
-    .brand-text { display: grid; line-height: 1.15; }
-    .brand-text strong { font-size: 17px; }
-    .brand-text small { color: var(--muted); font-size: 12px; }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px;
-      background: var(--surface-2);
-      border-radius: 16px;
-    }
-
-    .nav a {
-      padding: 8px 14px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .nav a:hover { color: var(--blue); background: #fff; }
-
-    .header-actions { display: flex; align-items: center; gap: 8px; }
-
-    .lang-btn, .menu-btn {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--text);
-      border-radius: 14px;
-      height: 42px;
-      cursor: pointer;
-    }
-
-    .lang-btn { min-width: 52px; font-weight: 800; }
-
-    .menu-btn {
-      display: none;
-      width: 42px;
-      padding: 0 11px;
-    }
-
-    .menu-btn span {
-      display: block;
-      height: 2px;
-      background: var(--text);
-      margin: 5px 0;
-      border-radius: 999px;
-    }
-
-    .hero, .section {
-      width: min(1180px, calc(100% - 36px));
-      margin: 0 auto;
-    }
-
-    .hero {
-      min-height: calc(100vh - 90px);
-      padding: 92px 0 56px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) 430px;
-      align-items: center;
-      gap: 42px;
-    }
-
-    .kicker {
-      margin: 0 0 18px;
-      color: var(--blue);
-      font-weight: 900;
-      letter-spacing: 0.06em;
-    }
-
-    .hero h1 {
-      margin: 0;
-      max-width: 780px;
-      font-size: clamp(54px, 8vw, 102px);
-      letter-spacing: -0.07em;
-      line-height: 0.98;
-    }
-
-    .hero h1 em {
-      color: var(--blue);
-      font-style: normal;
-      display: inline-block;
-      position: relative;
-    }
-
-    .hero h1 em::after {
-      content: "";
-      position: absolute;
-      left: 2px;
-      right: -4px;
-      bottom: 8px;
-      height: 18px;
-      background: rgba(37, 99, 235, 0.13);
-      z-index: -1;
-      border-radius: 999px;
-    }
-
-    .subtitle {
-      margin: 28px 0 30px;
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 19px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .btn {
-      min-height: 54px;
-      padding: 14px 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      border-radius: 16px;
-      font-weight: 900;
-      transition: 0.2s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn.primary {
-      color: #fff;
-      background: var(--blue);
-      box-shadow: 0 14px 36px rgba(37, 99, 235, 0.25);
-    }
-
-    .btn.primary:hover { background: var(--blue-2); transform: translateY(-2px); }
-
-    .btn.secondary {
-      color: var(--text);
-      background: #fff;
-      border-color: var(--line);
-    }
-
-    .btn.secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
-
-    .metric-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 560px;
-      gap: 14px;
-      margin-top: 46px;
-    }
-
-    .metric-row div {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.72);
-    }
-
-    .metric-row strong {
-      display: block;
-      color: var(--blue);
-      font-size: 28px;
-      line-height: 1;
-    }
-
-    .metric-row span {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .profile-card {
-      padding: 26px;
-      border: 1px solid var(--line);
-      border-radius: 34px;
-      background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), transparent 36%), rgba(255, 255, 255, 0.9);
-      box-shadow: var(--shadow);
-    }
-
-    .profile-head {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .avatar {
-      width: 76px;
-      height: 76px;
-      flex: 0 0 76px;
-      border-radius: 26px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: 28px;
-      font-weight: 900;
-      background: linear-gradient(135deg, #0f172a, var(--blue));
-    }
-
-    .profile-head h2 { margin: 0 0 4px; font-size: 22px; }
-    .profile-head p { margin: 0; color: var(--muted); }
-
-    .profile-list { display: grid; gap: 12px; margin: 22px 0; }
-
-    .profile-list div {
-      padding: 14px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-    }
-
-    .profile-list span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .profile-list strong {
-      display: block;
-      margin-top: 2px;
-      font-size: 15px;
-    }
-
-    .status-box {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 16px;
-      border-radius: 20px;
-      background: var(--blue-soft);
-      color: #15376b;
-    }
-
-    .status-box p { margin: 0; font-weight: 700; font-size: 14px; }
-
-    .pulse {
-      margin-top: 7px;
-      width: 10px;
-      height: 10px;
-      flex: 0 0 10px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.14);
-    }
-
-    .section { padding: 92px 0; }
-
-    .section-head { margin-bottom: 34px; }
-
-    .section-head span, .contact-label {
-      display: inline-block;
-      color: var(--blue);
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .section-head h2, .contact-card h2 {
-      margin: 0;
-      font-size: clamp(38px, 5vw, 62px);
-      letter-spacing: -0.05em;
-      line-height: 1.05;
-    }
-
-    .section-head p { max-width: 740px; color: var(--muted); font-size: 17px; }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr 0.8fr;
-      gap: 18px;
-    }
-
-    .info-card {
-      padding: 26px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: 0 14px 50px rgba(15, 23, 42, 0.06);
-    }
-
-    .info-card.big { grid-row: span 2; }
-    .info-card h3 { margin: 0 0 12px; font-size: 23px; }
-    .info-card p { margin: 0; color: var(--muted); font-size: 17px; }
-    .icon { font-size: 30px; margin-bottom: 12px; }
-
-    .skill-wall { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
-
-    .skill-wall span {
-      display: inline-flex;
-      align-items: center;
-      min-height: 48px;
-      padding: 10px 18px;
-      border-radius: 17px;
-      color: var(--blue);
-      background: #fff;
-      border: 1px solid var(--line);
-      font-weight: 900;
-      box-shadow: 0 10px 32px rgba(15, 23, 42, 0.05);
-    }
-
-    .capability-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .capability-grid article, .project-card, .note-grid article {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: 0 14px 50px rgba(15, 23, 42, 0.06);
-    }
-
-    .capability-grid h3 { margin: 0 0 10px; font-size: 22px; }
-    .capability-grid p { color: var(--muted); margin: 0; }
-
-    .project-list {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 20px;
-    }
-
-    .project-card { position: relative; overflow: hidden; }
-
-    .project-card.featured {
-      grid-row: span 2;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.10), transparent 44%), #fff;
-    }
-
-    .project-card.award { border-color: rgba(37, 99, 235, 0.32); }
-
-    .project-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .badge {
-      display: inline-flex;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: var(--blue-soft);
-      color: var(--blue-2);
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .year { color: var(--muted); font-weight: 800; font-size: 14px; }
-
-    .project-card h3 {
-      margin: 0 0 14px;
-      font-size: clamp(24px, 3vw, 38px);
-      letter-spacing: -0.04em;
-      line-height: 1.16;
-    }
-
-    .project-card p, .project-card li { color: var(--muted); font-size: 16px; }
-    .project-card ul { padding-left: 20px; }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-
-    .tags span {
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: var(--surface-2);
-      color: #475569;
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .note-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .note-grid article span {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: var(--blue);
-      color: #fff;
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-
-    .note-grid h3 { margin: 0 0 10px; font-size: 22px; }
-    .note-grid p { margin: 0; color: var(--muted); }
-
-    .contact-card {
-      padding: 38px;
-      border-radius: 34px;
-      background: linear-gradient(135deg, #0f172a, #1d4ed8);
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .contact-card p { max-width: 760px; color: rgba(255, 255, 255, 0.78); }
-    .contact-label { color: #bfdbfe; }
-
-    .contact-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin: 26px 0 18px;
-    }
-
-    .contact-card .btn.primary { background: #fff; color: var(--blue-2); box-shadow: none; }
-    .contact-card .btn.secondary { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.35); }
-    .tip { font-size: 14px; margin-bottom: 0; }
-
-    footer {
-      width: min(1180px, calc(100% - 36px));
-      margin: 0 auto;
-      padding: 32px 0 42px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-    }
-
-    #backTop {
-      width: 46px;
-      height: 46px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
-      color: var(--blue);
-      font-size: 22px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    @media (max-width: 980px) {
-      .topbar { width: min(100% - 20px, 760px); }
-
-      .nav {
-        display: none;
-        position: absolute;
-        left: 12px;
-        right: 12px;
-        top: 78px;
-        padding: 12px;
-        border: 1px solid var(--line);
-        background: #fff;
-        box-shadow: var(--shadow);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="data:," />
+    <title>安继强个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d0e10;
+        --bg-raise: #14161a;
+        --bg-raise-2: #191c21;
+        --line: #262a31;
+        --line-soft: #1d2026;
+        --ink: #ece9e2;
+        --ink-dim: #a7a49b;
+        --ink-faint: #6f6d66;
+        --amber: #e9a13b;
+        --amber-deep: #b97a1e;
+        --steel: #8fa3b8;
+        --radius: 14px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background:
+          linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+          var(--bg);
+        background-size: 44px 44px, 44px 44px, auto;
+        color: var(--ink);
+        font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px 72px; }
+
+      /* ---------- Hero ---------- */
+      .hero { padding: 56px 0 8px; }
+      .hero-top {
+        display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+        font-family: "IBM Plex Mono", monospace; font-size: 12.5px;
+        letter-spacing: .08em; color: var(--ink-faint);
+        text-transform: uppercase;
+      }
+      .hero-top .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none; }
+      .hero-top .here { color: var(--steel); }
+      h1 {
+        font-family: "Noto Serif SC", serif; font-weight: 900;
+        font-size: clamp(56px, 15vw, 108px); line-height: 1.05;
+        margin: 22px 0 6px; letter-spacing: .02em;
+      }
+      h1 .en {
+        display: block; font-family: "IBM Plex Mono", monospace; font-weight: 500;
+        font-size: clamp(13px, 3.4vw, 17px); letter-spacing: .34em;
+        color: var(--amber); margin-top: 14px;
+      }
+      .identity {
+        margin: 26px 0 0; font-size: clamp(16px, 4.4vw, 20px); font-weight: 500;
+        color: var(--ink); max-width: 34em;
+      }
+      .identity b { color: var(--amber); font-weight: 700; }
+      .id-rows {
+        margin-top: 22px; border-top: 1px solid var(--line);
+      }
+      .id-row {
+        display: flex; gap: 16px; padding: 11px 2px;
+        border-bottom: 1px solid var(--line-soft); font-size: 15px;
+      }
+      .id-row .k {
+        flex: none; width: 76px; color: var(--ink-faint); font-size: 13px;
+        padding-top: 2px; letter-spacing: .12em;
+      }
+      .id-row .v { color: var(--ink-dim); }
+      .id-row .v strong { color: var(--ink); font-weight: 500; }
+
+      /* ---------- Motto ---------- */
+      .motto {
+        margin: 44px 0 0; padding: 30px 26px 26px;
+        background: var(--bg-raise); border: 1px solid var(--line);
+        border-radius: var(--radius); position: relative; overflow: hidden;
+      }
+      .motto::before {
+        content: "“"; position: absolute; top: -30px; right: 14px;
+        font-family: "Noto Serif SC", serif; font-size: 150px; font-weight: 900;
+        color: rgba(233,161,59,.10); line-height: 1; pointer-events: none;
+      }
+      .motto .label { font-size: 12.5px; letter-spacing: .3em; color: var(--amber); font-weight: 700; }
+      .motto p {
+        font-family: "Noto Serif SC", serif; font-weight: 900;
+        font-size: clamp(26px, 7vw, 40px); line-height: 1.35; margin: 12px 0 8px;
+      }
+      .motto .note { color: var(--ink-dim); font-size: 14.5px; margin: 0; max-width: 32em; }
+
+      /* ---------- Sections ---------- */
+      section { margin-top: 56px; }
+      .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
+      .sec-head .no { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--amber); }
+      .sec-head h2 { font-size: 22px; font-weight: 900; margin: 0; letter-spacing: .02em; }
+      .sec-head .rule { flex: 1; height: 1px; background: var(--line); transform: translateY(-4px); }
+
+      .about p { color: var(--ink-dim); font-size: 16px; margin: 0 0 14px; max-width: 40em; }
+      .about p strong { color: var(--ink); font-weight: 500; }
+      .about p:last-child { margin-bottom: 0; }
+
+      /* ---------- Skills ---------- */
+      .skill {
+        background: var(--bg-raise); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: 26px;
+      }
+      .skill + .skill { margin-top: 16px; }
+      .skill-head { display: flex; align-items: flex-start; gap: 16px; }
+      .skill-ico {
+        flex: none; width: 46px; height: 46px; border-radius: 10px;
+        background: var(--bg-raise-2); border: 1px solid var(--line);
+        display: grid; place-items: center; color: var(--amber);
+      }
+      .skill-ico svg { width: 24px; height: 24px; }
+      .skill h3 { margin: 2px 0 4px; font-size: 19px; font-weight: 700; }
+      .skill .sub { color: var(--ink-faint); font-size: 13.5px; margin: 0; }
+      .skill .price {
+        margin-left: auto; flex: none; text-align: right;
+        font-family: "IBM Plex Mono", monospace; color: var(--amber); font-size: 15px;
+      }
+      .skill .price small { display: block; color: var(--ink-faint); font-size: 11.5px; letter-spacing: .06em; margin-top: 2px; }
+      .skill .desc { color: var(--ink-dim); font-size: 15px; margin: 16px 0 0; }
+      .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+      .tag {
+        font-size: 13px; color: var(--steel); border: 1px solid var(--line);
+        background: var(--bg-raise-2); border-radius: 999px; padding: 5px 12px;
       }
 
-      .nav.open { display: grid; grid-template-columns: repeat(2, 1fr); }
-      .nav a { text-align: center; padding: 12px; }
-      .menu-btn { display: block; }
-
-      .hero { grid-template-columns: 1fr; padding-top: 74px; }
-      .profile-card { max-width: 580px; }
-      .about-grid, .capability-grid, .project-list, .note-grid { grid-template-columns: 1fr; }
-      .info-card.big { grid-row: auto; }
-    }
-
-    @media (max-width: 560px) {
-      .topbar {
-        top: 8px;
-        margin-top: 8px;
-        border-radius: 20px;
+      /* ---------- Now ---------- */
+      .now-list { list-style: none; margin: 0; padding: 0; }
+      .now-list li {
+        display: flex; gap: 14px; align-items: baseline;
+        padding: 13px 2px; border-bottom: 1px solid var(--line-soft); font-size: 15.5px;
       }
-
-      .brand-text small { display: none; }
-
-      .hero, .section, footer { width: min(100% - 28px, 1180px); }
-
-      .hero { min-height: auto; padding: 62px 0 38px; }
-      .hero h1 { font-size: 56px; }
-      .subtitle { font-size: 17px; }
-      .metric-row { grid-template-columns: 1fr; margin-top: 28px; }
-      .profile-head { align-items: flex-start; }
-      .section { padding: 64px 0; }
-      .section-head h2, .contact-card h2 { font-size: 42px; }
-
-      .info-card, .capability-grid article, .project-card, .note-grid article, .contact-card {
-        padding: 22px;
-        border-radius: 24px;
+      .now-list li:first-child { border-top: 1px solid var(--line); }
+      .now-list .st {
+        flex: none; font-family: "IBM Plex Mono", monospace; font-size: 12px;
+        color: var(--amber); border: 1px solid rgba(233,161,59,.4);
+        border-radius: 6px; padding: 2px 8px; transform: translateY(-1px);
       }
+      .now-list .st.grey { color: var(--ink-faint); border-color: var(--line); }
+      .now-list span { color: var(--ink-dim); }
+      .now-list span b { color: var(--ink); font-weight: 500; }
 
-      .contact-actions .btn { width: 100%; }
-      footer { align-items: flex-start; gap: 18px; }
-    }
-  </style>
-</head>
+      /* ---------- Contact ---------- */
+      .contact {
+        background: var(--bg-raise); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: 26px;
+      }
+      .contact p.lead { margin: 0 0 20px; color: var(--ink-dim); font-size: 15.5px; max-width: 36em; }
+      .contact p.lead strong { color: var(--ink); font-weight: 500; }
+      .gh-row {
+        display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch;
+      }
+      .gh-card {
+        flex: 1 1 260px; display: flex; align-items: center; gap: 14px;
+        background: var(--bg-raise-2); border: 1px solid var(--line);
+        border-radius: 10px; padding: 14px 16px; min-height: 64px;
+        text-decoration: none; color: var(--ink);
+      }
+      .gh-card svg { width: 30px; height: 30px; flex: none; color: var(--ink); }
+      .gh-card .who { line-height: 1.35; }
+      .gh-card .who .name { font-weight: 700; font-size: 16px; }
+      .gh-card .who .hint { color: var(--ink-faint); font-size: 12.5px; }
+      .gh-card .arrow { margin-left: auto; color: var(--amber); font-size: 18px; flex: none; }
+      .copy-btn {
+        flex: none; display: inline-flex; align-items: center; gap: 8px;
+        min-height: 48px; padding: 0 20px; cursor: pointer;
+        background: var(--amber); color: #191104; border: none; border-radius: 10px;
+        font-family: inherit; font-size: 15px; font-weight: 700;
+      }
+      .copy-btn:active { background: var(--amber-deep); }
+      .copy-btn svg { width: 17px; height: 17px; }
+      .contact-meta {
+        margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line-soft);
+        display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 14px; color: var(--ink-faint);
+      }
+      .contact-meta b { color: var(--ink-dim); font-weight: 500; }
 
-<body>
-  <div class="page-shell">
-    <header class="topbar">
-      <a class="brand" href="#home">
-        <span class="brand-mark">J</span>
-        <span class="brand-text">
-          <strong>Jackson</strong>
-          <small>Personal Portfolio</small>
-        </span>
-      </a>
+      footer {
+        margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line-soft);
+        display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between;
+        color: var(--ink-faint); font-size: 13px;
+      }
+      footer .mono { font-family: "IBM Plex Mono", monospace; }
 
-      <nav class="nav" id="nav">
-        <a href="#home" data-zh="首页" data-en="Home">首页</a>
-        <a href="#about" data-zh="关于" data-en="About">关于</a>
-        <a href="#skills" data-zh="技能" data-en="Skills">技能</a>
-        <a href="#projects" data-zh="项目" data-en="Projects">项目</a>
-        <a href="#notes" data-zh="笔记" data-en="Notes">笔记</a>
-        <a href="#contact" data-zh="联系" data-en="Contact">联系</a>
-      </nav>
+      a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 6px;
+      }
+      @media (max-width: 560px) {
+        .wrap { padding: 0 16px 56px; }
+        .hero { padding-top: 40px; }
+        .skill, .contact, .motto { padding: 22px 18px; }
+        .skill .price { display: none; }
+        .copy-btn { width: 100%; justify-content: center; min-height: 52px; }
+        .id-row .k { width: 62px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
 
-      <div class="header-actions">
-        <button class="lang-btn" id="langToggle">EN</button>
-        <button class="menu-btn" id="menuBtn" aria-label="打开菜单">
-          <span></span><span></span><span></span>
-        </button>
+      <!-- Hero -->
+      <header class="hero">
+        <div class="hero-top">
+          <span class="dot" aria-hidden="true"></span>
+          <span>个人主页</span>
+          <span class="here">甘肃 · 兰州</span>
+          <span>大二在读</span>
+        </div>
+        <h1>安继强<span class="en">AN JIQIANG</span></h1>
+        <p class="identity">
+          甘肃交通职业技术学院<b>智能网联汽车技术</b>专业大二学生，
+          正在学<b>AI 应用开发</b>——用 AI 工具把想法做成能交付的东西。
+        </p>
+        <div class="id-rows">
+          <div class="id-row"><span class="k">学校</span><span class="v"><strong>甘肃交通职业技术学院</strong></span></div>
+          <div class="id-row"><span class="k">专业</span><span class="v"><strong>智能网联汽车技术</strong> · 大二</span></div>
+          <div class="id-row"><span class="k">方向</span><span class="v"><strong>AI 应用开发</strong> · AI 工具应用与自动化交付</span></div>
+          <div class="id-row"><span class="k">作品集</span><span class="v">GitHub：<strong>JacksonAnAnAn</strong>（仓库 anjiqiang-ai-portfolio）</span></div>
+        </div>
+      </header>
+
+      <!-- Motto -->
+      <div class="motto">
+        <div class="label">座 右 铭</div>
+        <p>把事做成，比什么都强。</p>
+        <p class="note">不空谈、不等条件齐了再动手。先跑通一个，再改好一个——这个页面就是这么来的。</p>
       </div>
-    </header>
 
-    <main>
-      <section class="hero" id="home">
-        <div class="hero-content">
-          <p class="kicker" data-zh="学生 · AI 应用学习者 · 执行力型年轻人" data-en="Student · AI Application Learner · Execution-driven">学生 · AI 应用学习者 · 执行力型年轻人</p>
+      <!-- About -->
+      <section class="about" aria-labelledby="about-h">
+        <div class="sec-head"><span class="no">01</span><h2 id="about-h">关于我</h2><span class="rule"></span></div>
+        <p>
+          我学的是智能网联汽车技术，专业课在班里靠前；课外的时间押在 AI 上。
+          路线很明确：不去和本科生拼算法和学历，走<strong>AI 应用层</strong>——
+          用现成的 AI 工具和 Agent 能力，叠加自己的汽车专业背景，做能真正交付、能换来收入的东西。
+        </p>
+        <p>
+          已经迈出的第一步是<strong>简历制作服务</strong>：给同学做一页式简历，Word + PDF 交付，
+          靠这个拿到了第一笔靠交付赚的钱。金额不大，但证明了这条路能走通。
+        </p>
+      </section>
 
-          <h1>
-            <span data-zh="大家好，我是" data-en="Hi, I'm">大家好，我是</span>
-            <em data-zh="安继强" data-en="Jackson">安继强</em>
-          </h1>
+      <!-- Skills -->
+      <section aria-labelledby="skills-h">
+        <div class="sec-head"><span class="no">02</span><h2 id="skills-h">技能与服务</h2><span class="rule"></span></div>
 
-          <p class="subtitle" data-zh="来自甘肃交通职业技术学院智能网联汽车工程方向。现阶段我不把自己包装成“技术大神”，而是认真学习 AI 工具、Agent、API 测试和网页部署，把每一步学习转化成能展示、能复盘、能继续迭代的作品。" data-en="I am a student majoring in Intelligent Connected Vehicle Engineering at Gansu Vocational and Technical College of Communications. I do not pretend to be an expert; I focus on learning AI tools, agents, API testing, and web deployment, turning each learning step into visible and reusable work.">
-            来自甘肃交通职业技术学院智能网联汽车工程方向。现阶段我不把自己包装成“技术大神”，而是认真学习 AI 工具、Agent、API 测试和网页部署，把每一步学习转化成能展示、能复盘、能继续迭代的作品。
+        <article class="skill">
+          <div class="skill-head">
+            <div class="skill-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.4L12 15l-1.9-4.6L5.5 9l4.6-1.4L12 3z"/><path d="M19 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg>
+            </div>
+            <div>
+              <h3>AI 工具使用</h3>
+              <p class="sub">日常主力工具，拿来做真实产出，不只是聊天</p>
+            </div>
+          </div>
+          <p class="desc">
+            熟练使用主流 AI 工具完成写作、做图、写代码和查资料；用 GitHub Copilot 辅助开发，
+            把需求说清楚、让 AI 写、自己负责跑通和验证；做过 API 测试和粒子交互效果页面，
+            也运营着一个分享 AI 使用内容的抖音账号。
           </p>
+          <div class="tags">
+            <span class="tag">ChatGPT</span>
+            <span class="tag">GitHub Copilot</span>
+            <span class="tag">Muse</span>
+            <span class="tag">API 测试</span>
+            <span class="tag">AI 内容制作</span>
+          </div>
+        </article>
 
-          <div class="hero-actions">
-            <a class="btn primary" href="#projects">
-              <span data-zh="查看我的作品" data-en="View My Work">查看我的作品</span>
-              <b>→</b>
+        <article class="skill">
+          <div class="skill-head">
+            <div class="skill-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+            </div>
+            <div>
+              <h3>简历制作服务</h3>
+              <p class="sub">一页式简历 · 已有付费交付记录</p>
+            </div>
+            <div class="price">¥10<small>起 / 份</small></div>
+          </div>
+          <p class="desc">
+            针对学生和应届求职：把证书、实训和经历梳理成一页能直接投的简历，
+            只写真实材料、不编造。交付 Word + PDF 两个版本，带照片排版。
+            已为多位同学交付，包括汽修、机械等专业方向。
+          </p>
+          <div class="tags">
+            <span class="tag">一页 A4</span>
+            <span class="tag">Word + PDF 交付</span>
+            <span class="tag">证书 / 实训梳理</span>
+            <span class="tag">不编造、只写真的</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- Now -->
+      <section aria-labelledby="now-h">
+        <div class="sec-head"><span class="no">03</span><h2 id="now-h">正在进行</h2><span class="rule"></span></div>
+        <ul class="now-list">
+          <li><span class="st">进行中</span><span><b>AI 应用开发入门</b>——用 Copilot 做小项目，成品陆续放进 GitHub 作品集，这个个人主页是其中之一</span></li>
+          <li><span class="st">进行中</span><span><b>英语</b>——每天背单词打卡，目标通过大学英语四级</span></li>
+          <li><span class="st grey">补位中</span><span><b>Python 基础</b>——跟北京理工大学嵩天老师的《Python 语言程序设计》，补上看懂、改动 AI 代码的底子</span></li>
+        </ul>
+      </section>
+
+      <!-- Contact -->
+      <section aria-labelledby="contact-h">
+        <div class="sec-head"><span class="no">04</span><h2 id="contact-h">联系方式</h2><span class="rule"></span></div>
+        <div class="contact">
+          <p class="lead">
+            想<strong>做一份简历</strong>，或者聊聊 <strong>AI 工具怎么用在学习和接单上</strong>，
+            通过下面的 GitHub 主页找到我——我的项目和作品都放在那里。
+          </p>
+          <div class="gh-row">
+            <a class="gh-card" href="https://github.com/JacksonAnAnAn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <span class="who">
+                <span class="name">GitHub · JacksonAnAnAn</span><br />
+                <span class="hint">github.com/JacksonAnAnAn</span>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
             </a>
-            <a class="btn secondary" href="#contact" data-zh="联系我" data-en="Contact Me">联系我</a>
+            <button class="copy-btn" id="copyBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copyLabel">复制 GitHub 账号</span>
+            </button>
           </div>
-
-          <div class="metric-row">
-            <div>
-              <strong>01</strong>
-              <span data-zh="竞赛奖项" data-en="Award">竞赛奖项</span>
-            </div>
-            <div>
-              <strong>04</strong>
-              <span data-zh="项目展示" data-en="Projects">项目展示</span>
-            </div>
-            <div>
-              <strong>06+</strong>
-              <span data-zh="学习工具" data-en="Tools">学习工具</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="profile-card">
-          <div class="profile-head">
-            <div class="avatar">AJ</div>
-            <div>
-              <h2>安继强 / Jackson</h2>
-              <p data-zh="AI 应用开发实习生方向" data-en="Target: AI Application Development Intern">AI 应用开发实习生方向</p>
-            </div>
-          </div>
-
-          <div class="profile-list">
-            <div>
-              <span data-zh="学校" data-en="College">学校</span>
-              <strong data-zh="甘肃交通职业技术学院" data-en="Gansu Vocational and Technical College of Communications">甘肃交通职业技术学院</strong>
-            </div>
-            <div>
-              <span data-zh="专业" data-en="Major">专业</span>
-              <strong data-zh="智能网联汽车工程" data-en="Intelligent Connected Vehicle Engineering">智能网联汽车工程</strong>
-            </div>
-            <div>
-              <span data-zh="关键词" data-en="Keywords">关键词</span>
-              <strong data-zh="诚恳、愿学、执行力强" data-en="Sincere, willing to learn, strong execution">诚恳、愿学、执行力强</strong>
-            </div>
-          </div>
-
-          <div class="status-box">
-            <span class="pulse"></span>
-            <p data-zh="正在学习 Agent、MCP、Postman API 测试与 AI 工具协作。" data-en="Currently learning Agent, MCP, Postman API testing, and AI-tool collaboration.">正在学习 Agent、MCP、Postman API 测试与 AI 工具协作。</p>
-          </div>
-        </aside>
-      </section>
-
-      <section class="section about" id="about">
-        <div class="section-head">
-          <span>About</span>
-          <h2 data-zh="关于我" data-en="About Me">关于我</h2>
-        </div>
-
-        <div class="about-grid">
-          <div class="info-card big">
-            <h3 data-zh="我现在的定位" data-en="My Positioning">我现在的定位</h3>
-            <p data-zh="我是一名正在成长中的大学生。相比夸张地展示“精通某某技术”，我更希望展示真实的学习过程：能听懂任务、能拆解步骤、能借助 AI 工具完成基础开发、能用 Postman 测试接口，也愿意把过程整理成文档和网页。" data-en="I am a college student who is still growing. Instead of overstating my skills, I prefer to show a real learning process: understanding tasks, breaking them down into steps, using AI tools to complete basic development, testing APIs with Postman, and documenting the process.">
-              我是一名正在成长中的大学生。相比夸张地展示“精通某某技术”，我更希望展示真实的学习过程：能听懂任务、能拆解步骤、能借助 AI 工具完成基础开发、能用 Postman 测试接口，也愿意把过程整理成文档和网页。
-            </p>
-          </div>
-
-          <div class="info-card">
-            <div class="icon">🎓</div>
-            <h3 data-zh="教育背景" data-en="Education">教育背景</h3>
-            <p data-zh="甘肃交通职业技术学院｜智能网联汽车工程方向" data-en="Gansu Vocational and Technical College of Communications · Intelligent Connected Vehicle Engineering">甘肃交通职业技术学院｜智能网联汽车工程方向</p>
-          </div>
-
-          <div class="info-card">
-            <div class="icon">🏆</div>
-            <h3 data-zh="竞赛经历" data-en="Competition">竞赛经历</h3>
-            <p data-zh="第九届中国高校智能机器人创意大赛三等奖" data-en="Third Prize, The 9th China University Intelligent Robot Creative Competition">第九届中国高校智能机器人创意大赛三等奖</p>
-          </div>
-
-          <div class="info-card">
-            <div class="icon">🧭</div>
-            <h3 data-zh="学习方向" data-en="Learning Direction">学习方向</h3>
-            <p data-zh="AI 应用、Agent、MCP、API 测试、网页部署、智能工具工作流" data-en="AI applications, Agent, MCP, API testing, web deployment, and AI-tool workflows">AI 应用、Agent、MCP、API 测试、网页部署、智能工具工作流</p>
+          <div class="contact-meta">
+            <span>学校：<b>甘肃交通职业技术学院</b></span>
+            <span>专业：<b>智能网联汽车技术（大二）</b></span>
+            <span>接单：<b>简历制作 · 10 元起</b></span>
           </div>
         </div>
       </section>
 
-      <section class="section" id="skills">
-        <div class="section-head">
-          <span>Skills</span>
-          <h2 data-zh="技能与工具" data-en="Skills & Tools">技能与工具</h2>
-          <p data-zh="这里不写“精通”，只展示我目前能使用、正在学习、并能说明清楚的工具。" data-en="I do not claim mastery here. I only list tools that I can use, am learning, and can explain clearly.">这里不写“精通”，只展示我目前能使用、正在学习、并能说明清楚的工具。</p>
-        </div>
+      <footer>
+        <span>© <span id="year">2026</span> 安继强</span>
+        <span class="mono">Built with AI tools · 跑通，再改好</span>
+      </footer>
 
-        <div class="skill-wall">
-          <span>GPT</span><span>Claude Code</span><span>Codex</span><span>Postman</span><span>API Testing</span><span>Chrome DevTools</span><span>Agent</span><span>MCP</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub</span><span>Vercel</span>
-        </div>
+    </div>
 
-        <div class="capability-grid">
-          <article>
-            <h3 data-zh="AI 工具协作" data-en="AI Tool Collaboration">AI 工具协作</h3>
-            <p data-zh="能使用 GPT、Claude Code、Codex 辅助梳理需求、生成代码、修改页面、解释报错和整理文档。" data-en="Able to use GPT, Claude Code, and Codex to clarify requirements, generate code, revise pages, explain errors, and organize documentation.">能使用 GPT、Claude Code、Codex 辅助梳理需求、生成代码、修改页面、解释报错和整理文档。</p>
-          </article>
-          <article>
-            <h3 data-zh="接口测试入门" data-en="API Testing Basics">接口测试入门</h3>
-            <p data-zh="会用 Postman 发送请求，查看参数、Headers、Body 和返回结果，理解基础接口调试流程。" data-en="Can use Postman to send requests, inspect parameters, headers, body, and responses, and understand basic API debugging workflows.">会用 Postman 发送请求，查看参数、Headers、Body 和返回结果，理解基础接口调试流程。</p>
-          </article>
-          <article>
-            <h3 data-zh="浏览器调试" data-en="Browser Debugging">浏览器调试</h3>
-            <p data-zh="了解 Chrome DevTools 的基础功能，能查看页面结构、Console 信息和 Network 请求。" data-en="Understands basic Chrome DevTools features, including page structure, console information, and network requests.">了解 Chrome DevTools 的基础功能，能查看页面结构、Console 信息和 Network 请求。</p>
-          </article>
-        </div>
-      </section>
+    <script>
+      (function () {
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-      <section class="section projects" id="projects">
-        <div class="section-head">
-          <span>Projects</span>
-          <h2 data-zh="项目经历" data-en="Projects">项目经历</h2>
-          <p data-zh="项目选择偏真实、可解释、能继续学习和完善，不做过度包装。" data-en="These projects are realistic, explainable, and suitable for continued learning and improvement.">项目选择偏真实、可解释、能继续学习和完善，不做过度包装。</p>
-        </div>
+        var btn = document.getElementById('copyBtn');
+        var label = document.getElementById('copyLabel');
+        var username = 'JacksonAnAnAn';
+        var timer = null;
 
-        <div class="project-list">
-          <article class="project-card featured">
-            <div class="project-top"><span class="badge">Personal Website</span><span class="year">2026</span></div>
-            <h3 data-zh="个人主页搭建与 Vercel 部署" data-en="Personal Website and Vercel Deployment">个人主页搭建与 Vercel 部署</h3>
-            <p data-zh="基于 HTML、CSS、JavaScript 搭建个人主页，完成首页、关于我、技能、项目、学习笔记和联系方式模块，并通过 GitHub + Vercel 部署成可访问网站。" data-en="Built a personal website using HTML, CSS, and JavaScript, including home, about, skills, projects, notes, and contact sections, and deployed it through GitHub + Vercel.">基于 HTML、CSS、JavaScript 搭建个人主页，完成首页、关于我、技能、项目、学习笔记和联系方式模块，并通过 GitHub + Vercel 部署成可访问网站。</p>
-            <ul>
-              <li data-zh="完成响应式页面，手机端和电脑端均可访问。" data-en="Completed responsive pages for both mobile and desktop.">完成响应式页面，手机端和电脑端均可访问。</li>
-              <li data-zh="整理 README 与部署说明，方便后续维护。" data-en="Prepared README and deployment notes for future maintenance.">整理 README 与部署说明，方便后续维护。</li>
-            </ul>
-            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Vercel</span></div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-top"><span class="badge">AI Workflow</span><span class="year">2026</span></div>
-            <h3 data-zh="AI 工具辅助学习工作流" data-en="AI-assisted Learning Workflow">AI 工具辅助学习工作流</h3>
-            <p data-zh="整理如何用 GPT、Claude Code、Codex 辅助完成学习任务：从理解需求、拆解步骤、生成草稿，到修改代码、检查结果和形成文档。" data-en="Organized how to use GPT, Claude Code, and Codex to support learning tasks, from understanding requirements and breaking down steps to generating drafts, revising code, checking results, and writing documentation.">整理如何用 GPT、Claude Code、Codex 辅助完成学习任务：从理解需求、拆解步骤、生成草稿，到修改代码、检查结果和形成文档。</p>
-            <div class="tags"><span>GPT</span><span>Claude Code</span><span>Codex</span><span>Documentation</span></div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-top"><span class="badge">API Practice</span><span class="year">2026</span></div>
-            <h3 data-zh="Postman API 请求测试练习" data-en="Postman API Testing Practice">Postman API 请求测试练习</h3>
-            <p data-zh="学习使用 Postman 发送 GET/POST 请求，观察请求参数、Headers、Body、响应状态码和返回内容，建立接口测试的基础认识。" data-en="Practiced sending GET/POST requests with Postman, observing parameters, headers, body, status codes, and responses to build a basic understanding of API testing.">学习使用 Postman 发送 GET/POST 请求，观察请求参数、Headers、Body、响应状态码和返回内容，建立接口测试的基础认识。</p>
-            <div class="tags"><span>Postman</span><span>GET/POST</span><span>Headers</span><span>Response</span></div>
-          </article>
-
-          <article class="project-card award">
-            <div class="project-top"><span class="badge">Competition</span><span class="year">Award</span></div>
-            <h3 data-zh="第九届中国高校智能机器人创意大赛" data-en="The 9th China University Intelligent Robot Creative Competition">第九届中国高校智能机器人创意大赛</h3>
-            <p data-zh="参与智能机器人相关创意实践项目，完成方案学习、材料整理与展示相关工作，获得第九届中国高校智能机器人创意大赛三等奖。" data-en="Participated in an intelligent robot creative practice project, contributing to solution learning, material organization, and presentation work. Awarded Third Prize.">参与智能机器人相关创意实践项目，完成方案学习、材料整理与展示相关工作，获得第九届中国高校智能机器人创意大赛三等奖。</p>
-            <div class="tags"><span>Robotics</span><span>Teamwork</span><span>Presentation</span><span>Third Prize</span></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section notes" id="notes">
-        <div class="section-head">
-          <span>Notes</span>
-          <h2 data-zh="学习笔记" data-en="Learning Notes">学习笔记</h2>
-        </div>
-
-        <div class="note-grid">
-          <article>
-            <span>01</span>
-            <h3 data-zh="Vercel 部署个人网站" data-en="Deploying a Personal Website to Vercel">Vercel 部署个人网站</h3>
-            <p data-zh="记录从准备网页文件、上传 GitHub 到导入 Vercel 的完整步骤。" data-en="Recording the process from preparing website files and uploading them to GitHub to importing them into Vercel.">记录从准备网页文件、上传 GitHub 到导入 Vercel 的完整步骤。</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3 data-zh="Postman 发请求入门" data-en="Getting Started with Postman Requests">Postman 发请求入门</h3>
-            <p data-zh="整理 GET、POST、Headers、Body、Response 等基础概念。" data-en="Organizing basic concepts such as GET, POST, headers, body, and response.">整理 GET、POST、Headers、Body、Response 等基础概念。</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3 data-zh="Agent 与 MCP 学习记录" data-en="Agent and MCP Learning Notes">Agent 与 MCP 学习记录</h3>
-            <p data-zh="理解 AI 如何连接工具、调用能力、拆解任务并形成工作流。" data-en="Understanding how AI connects tools, invokes capabilities, breaks down tasks, and forms workflows.">理解 AI 如何连接工具、调用能力、拆解任务并形成工作流。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section contact" id="contact">
-        <div class="contact-card">
-          <div>
-            <span class="contact-label">Contact</span>
-            <h2 data-zh="保持联系" data-en="Get in Touch">保持联系</h2>
-            <p data-zh="如果你对我的学习经历、项目实践或 AI 应用方向感兴趣，可以通过以下方式联系我。" data-en="If you are interested in my learning experience, projects, or AI application direction, feel free to contact me.">如果你对我的学习经历、项目实践或 AI 应用方向感兴趣，可以通过以下方式联系我。</p>
-          </div>
-
-          <div class="contact-actions">
-            <a class="btn primary" href="mailto:ananand@gmail.com">ananand@gmail.com</a>
-            <a class="btn secondary" href="tel:13482880405">13482880405</a>
-          </div>
-
-          <p class="tip" data-zh="公开发布时，建议后续只保留邮箱，或把手机号替换为微信二维码，保护隐私。" data-en="For public release, it is recommended to keep only the email or replace the phone number with a WeChat QR code for privacy.">公开发布时，建议后续只保留邮箱，或把手机号替换为微信二维码，保护隐私。</p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>© 2026 安继强 Jackson. Built with HTML, CSS and JavaScript.</p>
-      <button id="backTop" aria-label="返回顶部">↑</button>
-    </footer>
-  </div>
-
-  <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const nav = document.getElementById("nav");
-    const langToggle = document.getElementById("langToggle");
-    const backTop = document.getElementById("backTop");
-
-    let lang = "zh";
-
-    menuBtn.addEventListener("click", () => {
-      nav.classList.toggle("open");
-    });
-
-    document.querySelectorAll(".nav a").forEach((link) => {
-      link.addEventListener("click", () => {
-        nav.classList.remove("open");
-      });
-    });
-
-    langToggle.addEventListener("click", () => {
-      lang = lang === "zh" ? "en" : "zh";
-      langToggle.textContent = lang === "zh" ? "EN" : "中文";
-      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-
-      document.querySelectorAll("[data-zh][data-en]").forEach((node) => {
-        node.textContent = node.dataset[lang];
-      });
-    });
-
-    backTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
-</body>
+        function done() {
+          label.textContent = '已复制 ✓';
+          clearTimeout(timer);
+          timer = setTimeout(function () { label.textContent = '复制 GitHub 账号'; }, 2200);
+        }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = username;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); done(); } catch (e) { label.textContent = username; }
+          document.body.removeChild(ta);
+        }
+        btn.addEventListener('click', function () {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(username).then(done, fallback);
+          } else {
+            fallback();
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>
